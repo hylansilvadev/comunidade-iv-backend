@@ -8,6 +8,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { SupabaseModule } from './core/supabase/supabase.module';
 import { DatabaseModule } from './core/database/database.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { PermissionsModule } from './modules/permissions/permissions.module';
 
 @Module({
   imports: [
@@ -20,6 +22,8 @@ import { DatabaseModule } from './core/database/database.module';
     UsersModule,
     AuthModule,
     ProfileModule,
+    RolesModule,
+    PermissionsModule,
   ],
   controllers: [AppController],
   providers: [
