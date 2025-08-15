@@ -1,33 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { SupabaseService } from 'src/supabase/supabase.service';
+import { LoginDto } from './dto/login.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
-import * as bcrypt from 'bcrypt';
-import { JwtService } from '@nestjs/jwt';
-import { User } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private usersService: UsersService,
-    private jwtService: JwtService,
+    private readonly supabaseService: SupabaseService,
+    private readonly usersService: UsersService,
   ) {}
 
-  async validateUser(
-    email: string,
-    pass: string,
-  ): Promise<Omit<User, 'senha'> | null> {
-    const user = await this.usersService.findByEmail(email);
-    if (user && (await bcrypt.compare(pass, user.senha))) {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { senha, ...result } = user;
-      return result;
+  async signIn(loginDto: LoginDto) {
+    const supabase = this.supabaseService.getClient();
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: loginDto.email,
+      password: loginDto.senha,
+    });
+
+    if (error) {
+      throw new UnauthorizedException(error.message);
     }
-    return null;
+
+    return data;
   }
 
-  login(user: Omit<User, 'senha'>) {
-    const payload = { email: user.email, sub: user.id };
-    return {
-      access_token: this.jwtService.sign(payload),
-    };
+  async signUp(createUserDto: CreateUserDto) {
+    const supabase = this.supabaseService.getClient();
+    const { data, error } = await supabase.auth.signUp({
+      email: createUserDto.email,
+      password: createUserDto.senha,
+      options: {
+        data: {
+          nome: createUserDto.nome,
+        },
+      },
+    });
+
+    if (error) {
+      throw new UnauthorizedException(error.message);
+    }
+
+    await this.usersService.create(createUserDto);
+
+    return data;
   }
 }

@@ -1,4 +1,3 @@
-import { Exclude } from 'class-transformer';
 import { Profile } from 'src/profile/entities/profile.entity';
 import {
   Column,
@@ -15,10 +14,6 @@ export class User {
 
   @Column({ unique: true, length: 100, nullable: false })
   email: string;
-
-  @Exclude()
-  @Column({ nullable: false })
-  senha: string;
 
   @OneToOne(() => Profile, { cascade: true, eager: true })
   @JoinColumn()
