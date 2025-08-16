@@ -10,6 +10,7 @@ import { SupabaseModule } from './core/supabase/supabase.module';
 import { DatabaseModule } from './core/database/database.module';
 import { RolesModule } from './modules/roles/roles.module';
 import { PermissionsModule } from './modules/permissions/permissions.module';
+import { EventsModule } from './modules/event/events.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { PermissionsModule } from './modules/permissions/permissions.module';
     ProfileModule,
     RolesModule,
     PermissionsModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [
