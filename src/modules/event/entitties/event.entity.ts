@@ -1,15 +1,15 @@
 import { Column, Entity, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
-import { Profile } from 'src/profile/entities/profile.entity';
+import { Profile } from '../../profile/entities/profile.entity';
 
 @Entity()
 export class Event {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column()
+  @Column({ length: 100, nullable: true })
   nome: string;
 
-  @Column()
+  @Column({ nullable: true })
   local: string;
 
   @Column('int', { default: 0 })
@@ -18,7 +18,7 @@ export class Event {
   @Column({ type: 'timestamp' })
   data: Date;
 
-  @Column()
+  @Column({ nullable: true })
   role: string;
 
   @ManyToMany(() => Profile)

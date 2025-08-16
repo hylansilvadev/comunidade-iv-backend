@@ -5,7 +5,7 @@ import { Event } from './entitties/event.entity';
 import { CreateEventDto } from './dto/create-event.dto';
 import { UpdateEventDto } from './dto/update-event.dto';
 import { RegisterToEventDto } from './dto/register-to-event.dto';
-import { Profile } from 'src/profile/entities/profile.entity';
+import { Profile } from '../profile/entities/profile.entity';
 
 @Injectable()
 export class EventsService {

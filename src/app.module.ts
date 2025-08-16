@@ -1,33 +1,27 @@
 import { ClassSerializerInterceptor, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
 import { APP_INTERCEPTOR } from '@nestjs/core';
-import { ProfileModule } from './profile/profile.module';
-import { SupabaseModule } from './supabase/supabase.module';
+import { UsersModule } from './modules/users/users.module';
+import { AuthModule } from './modules/auth/auth.module';
+import { ProfileModule } from './modules/profile/profile.module';
+import { SupabaseModule } from './core/supabase/supabase.module';
+import { DatabaseModule } from './core/database/database.module';
+import { EventsModule } from './modules/event/events.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath: '.env',
     }),
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '1234',
-      database: 'ht_dev',
-      autoLoadEntities: true,
-      synchronize: true,
-    }),
+    DatabaseModule,
+    SupabaseModule,
     UsersModule,
     AuthModule,
     ProfileModule,
-    SupabaseModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [

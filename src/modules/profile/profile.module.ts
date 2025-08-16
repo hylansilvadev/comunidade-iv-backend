@@ -3,7 +3,7 @@ import { ProfileService } from './profile.service';
 import { ProfileController } from './profile.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Profile } from './entities/profile.entity';
-import { SupabaseModule } from 'src/supabase/supabase.module';
+import { SupabaseModule } from 'src/core/supabase/supabase.module';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Profile]), SupabaseModule],
