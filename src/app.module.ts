@@ -25,7 +25,7 @@ import { EventsModule } from './modules/event/events.module';
     ProfileModule,
     RolesModule,
     PermissionsModule,
-    EventsModule
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [
