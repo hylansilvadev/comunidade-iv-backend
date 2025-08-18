@@ -18,6 +18,9 @@ export class Event {
   @Column({ type: 'timestamp' })
   data: Date;
 
+  @Column({ type: 'time', nullable: true })
+  hora: string;
+
   @Column({ nullable: true })
   role: string;
 
