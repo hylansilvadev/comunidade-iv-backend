@@ -79,12 +79,15 @@ export class ProfileService {
             .remove([oldImageKey]);
         }
       } catch (error) {
-        console.error('Falha ao remover a imagem antiga:', error);
+        console.error(
+          'Falha ao remover a imagem antiga (pode ser a primeira imagem):',
+          error.message,
+        );
       }
     }
 
     const fileExtension = path.extname(file.originalname);
-    const newFileName = `profile-images/${randomUUID()}${fileExtension}`;
+    const newFileName = `users-images/${randomUUID()}${fileExtension}`;
 
     const { error: uploadError } = await supabase.storage
       .from(this.supabaseBucket)
@@ -94,6 +97,7 @@ export class ProfileService {
       });
 
     if (uploadError) {
+      console.error('ERRO DO SUPABASE AO FAZER UPLOAD:', uploadError);
       throw new InternalServerErrorException('Erro ao fazer upload da imagem.');
     }
 

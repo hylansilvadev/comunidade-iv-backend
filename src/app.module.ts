@@ -8,6 +8,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { ProfileModule } from './modules/profile/profile.module';
 import { SupabaseModule } from './core/supabase/supabase.module';
 import { DatabaseModule } from './core/database/database.module';
+import { RolesModule } from './modules/roles/roles.module';
+import { PermissionsModule } from './modules/permissions/permissions.module';
 import { EventsModule } from './modules/event/events.module';
 
 @Module({
@@ -21,7 +23,9 @@ import { EventsModule } from './modules/event/events.module';
     UsersModule,
     AuthModule,
     ProfileModule,
-    EventsModule
+    RolesModule,
+    PermissionsModule,
+    EventsModule,
   ],
   controllers: [AppController],
   providers: [

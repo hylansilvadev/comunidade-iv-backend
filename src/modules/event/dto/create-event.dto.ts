@@ -15,5 +15,8 @@ export class CreateEventDto {
   data: Date;
 
   @IsString()
+  hora: string;
+
+  @IsString()
   role: string;
 }
